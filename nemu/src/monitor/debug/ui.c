@@ -71,7 +71,7 @@ static int cmd_x(char *args){
 	
 	int i;
 	for(i = 0; i < num; i++){
-		printf("0x%8x0x%x\n", exprs + i*32, swaddr_read(exprs + i*32, 4));
+		printf("0x%8x 0x%x\n", exprs + i*5, swaddr_read(exprs + i*5, 4));
 	}
 	return 0;
 }
