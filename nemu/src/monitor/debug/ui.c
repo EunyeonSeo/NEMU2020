@@ -59,6 +59,23 @@ static int cmd_info(char *args){
 	return 0;
 }
 
+static int cmd_x(char *args){
+
+	if(args == NULL){
+	printf("Your commond is wrong.\n");
+	return 0;
+	}
+
+	int num, exprs;
+	sscanf(args, "%d%x", &num, &exprs);
+	
+	int i;
+	for(i = 0; i < num; i++){
+		printf("0x%8x 0x%x\n", exprs + i*32, swaddr_read(exprs + i*32, 32));
+	}
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -68,7 +85,8 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Single-step execution", cmd_si},
-	{"info", "Print program status", cmd_info}
+	{"info", "Print program status", cmd_info},
+	{"x", "Scan the memory", cmd_x}
 	/* TODO: Add more commands */
 
 };
