@@ -239,7 +239,7 @@ int associate(int type){
 }
 
 int dominant_operator(int p, int q){
-	panic("Waiting for implemention");
+	//panic("Waiting for implemention");
 
 	//find the first operator that is not inside parentheses
 	int ix = p;
@@ -377,7 +377,7 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-	panic("please implement me");
+	//panic("please implement me");
 
 	//distinguish between DEREF and '*'
 	if (tokens[0].type == '*') {
