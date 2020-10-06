@@ -366,7 +366,7 @@ uint32_t eval (int p, int q){
 }
 uint32_t expr(char *e, bool *success) {
 
-	assert(0);
+	assert(e);
 	
 	*success = true;	
 
