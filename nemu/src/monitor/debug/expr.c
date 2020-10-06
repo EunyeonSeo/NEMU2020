@@ -268,9 +268,9 @@ int dominant_operator(int p, int q){
 
 uint32_t reg_val (char *reg_name){
 	//convert to lowercase
-//	char *pstr;
-//	for (*pstr = reg_name; *pstr != '\0'; ++pstr)
-//		*pstr = tolower(*pstr);
+	char *pstr;
+	for (pstr = reg_name; *pstr != '\0'; ++pstr)
+		*pstr = tolower(*pstr);
 
 	int ix;
 	for (ix = R_EAX; ix <= R_EDI; ++ix){
