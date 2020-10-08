@@ -175,7 +175,7 @@ bool check_parentheses(int p, int q){
 bool is_operator (int type){
 	switch (type) {
 		case'+': case'-': case '*': case'/':
-		case EQ: case NEQ: case AND: case OR: case NOT: case DEREF:
+		case EQ: case NEQ: case AND: case OR: case NOT: case DEREF: case MINUS:
 			return true;
 
 		default:
@@ -202,7 +202,7 @@ bool inside_pare (int ix, int begin, int end){
 //the begger the value, the lower the precedence
 int preced (int type) {
 	switch (type) {
-		case NOT: case DEREF:
+		case NOT: case DEREF: case MINUS:
 			return 1;
 		case '*': case '/':
 			return 2;
@@ -231,7 +231,7 @@ int associate(int type){
 		case '+': case'-': case'*': case'/':
 		case EQ: case NEQ: case AND: case OR:
 			return LEFT;
-		case NOT: case DEREF:
+		case NOT: case DEREF: case MINUS:
 			return RIGHT;
 		default: assert(0);
 	}
