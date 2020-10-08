@@ -14,7 +14,7 @@ jmp_buf env_buf;
 
 enum { EPARE = 1, EREG, ESYN, ESYM };
 enum {
-	NOTYPE = 256, EQ, DEC, HEX, REG, NEQ, AND, OR, NOT, DEREF, VAR
+	NOTYPE = 256, EQ, DEC, HEX, REG, NEQ, AND, OR, NOT, DEREF, VAR, MINUS
 
 	/* TODO: Add more token types */
 
@@ -45,7 +45,7 @@ static struct rule {
 	{"\\|\\|", OR},					// logic or
 	{"!", NOT},					// logic not
 	{"[_a-zA-Z][_0-9a-zA-Z]*", VAR}			// variable
-	
+
 
 
 };
@@ -334,12 +334,13 @@ uint32_t eval (int p, int q){
 		int op_type = tokens[op].type;
 
 		//unary operators
-		if (op_type == NOT || op_type == DEREF){
+		if (op_type == NOT || op_type == DEREF || op_type == MINUS){
 			uint32_t val = eval(op+1, q);
 			switch (tokens[op].type) {
 				case NOT: return !val;
 				case DEREF:
 					return swaddr_read(val, 4);
+				case MINUS: return -val;
 				default: assert(0);
 			}
 		}
@@ -386,6 +387,11 @@ uint32_t expr(char *e, bool *success) {
 
 	}
 
+	if (tokens[0].type == '-') {
+
+		tokens[0].type = MINUS;
+	}
+
 	int i; 
 	for (i = 1; i < nr_token; i++){
  	if (tokens[i].type == '*'){
@@ -398,6 +404,16 @@ uint32_t expr(char *e, bool *success) {
 			//Log("tokens[%d].type = DEREF", i);
 
 		}
+
+	if (tokens[i].type == '-'){
+	
+		int prev_t = tokens[i - 1].type;
+		int is_minus = prev_t == DEC || prev_t == HEX || prev_t == REG || prev_t == ')';
+		if (!is_minus) {
+
+			tokens[i].type = MINUS;
+		}
+	}
 
 	}
 
