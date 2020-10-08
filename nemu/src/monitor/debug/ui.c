@@ -83,6 +83,41 @@ static int cmd_p (char *args) {
 	return 0;	
 }
 
+static int cmd_w (char *args) {
+	if (strlen(args) > MAX_LENGTH_OF_EXPR) {
+		fprintf(stderr, "Expression is too long\n");
+		return 0;
+	}
+	bool success;
+	uint32_t res = expr(args, &success);
+
+	if (!success) return 0;
+
+	WP *wp = new_wp();
+	strcpy (wp -> expr, args);
+	wp -> value = res;
+
+	printf ("Watchpoint %d: %s\n", wp -> NO, wp -> expr);
+		return 0;
+
+}
+
+static int cmd_d (char *args) {
+	//extract the first argument
+	char *arg = strtok (NULL, " ");
+
+	if (arg == NULL) {
+		//no given arguments
+		fprintf (stderr, "Need a number. Try 'help d'\n");
+	}
+
+	else {
+		int number = atoi(arg);
+		free_wp(number);
+	}
+	return 0;
+
+}
 static struct {
 	char *name;
 	char *description;
@@ -94,7 +129,9 @@ static struct {
 	{ "si", "Single-step execution", cmd_si},
 	{"info", "Print program status", cmd_info},
 	{"x", "Scan the memory", cmd_x},
-	{"p", "Print value of expression EXPR", cmd_p}
+	{"p", "Print value of expression EXPR", cmd_p},
+	{"w", "Set an watchpoint for an expression", cmd_w},
+	{"d", "Delete a watchpoint", cmd_d}
 	/* TODO: Add more commands */
 
 };
