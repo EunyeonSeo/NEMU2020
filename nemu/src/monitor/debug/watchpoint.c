@@ -94,26 +94,20 @@ void check_watchpoints() {
 	WP *p = head -> next;
 
 	while (p != NULL) {
-		
 		bool success;
-		uint32_t cur_val = expr(p -> expr, &success);
-
-		//no need to check success, it must be true
+		uint32_t cur_val = expr (p->expr, &success);
 
 		//NOT equal to last value
 		if (cur_val != p -> value) {
-		
 			nemu_state = STOP;
-			printf("Watchpoint %d: %s\n", p -> NO, p -> expr);
-			printf("Old value = %u\n", p -> value);
-			printf("New value = %u\n", cur_val);
-			printf("at eip = 0x%x\n", cpu.eip);
+			printf ("Watchpoint %d: %s\n", p -> NO, p -> expr);
+			printf ("Old value = %u\n", p -> value);
+			printf ("New value = %u\n", cur_val);
+			printf ("at eip = 0x%x\n", cpu.eip);
 			p -> value = cur_val;
 			return;
 		}
-
 		p = p -> next;
-
 	}
 
 }

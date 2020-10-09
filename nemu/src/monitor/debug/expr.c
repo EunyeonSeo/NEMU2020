@@ -317,6 +317,8 @@ uint32_t eval (int p, int q){
 			}
 			case REG:
 				return reg_val(tokens[p].str);
+
+			
 			default: longjmp (env_buf, ESYN);
 		}
 	}
