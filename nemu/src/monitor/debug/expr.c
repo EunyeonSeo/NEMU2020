@@ -296,7 +296,7 @@ uint32_t reg_val (char *reg_name){
 
 } 
 
-
+uint32_t expr(char *e, bool *success);
 uint32_t eval (int p, int q){
 	if(p > q) {
 		//bad expression
