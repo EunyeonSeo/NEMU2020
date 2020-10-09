@@ -127,6 +127,16 @@ static bool make_token(char *e) {
 					strncpy(tokens[nr_token].str, substr_start + 1, substr_len - 1);
 					tokens[nr_token].str[substr_len-1] = '\0';
 					break;
+
+					case '-': {
+					char prev_t;
+					prev_t = tokens[i - 1].type;
+			                int is_sub;
+					is_sub = prev_t == DEC || prev_t == HEX || prev_t == REG || prev_t == ')';
+					if (!is_sub) rules[i].token_type = MINUS;
+				
+					break;
+					}
 					default:// panic("please implement me"); 
 						; 
 				}
