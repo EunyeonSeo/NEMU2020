@@ -56,6 +56,14 @@ static int cmd_info(char *args){
 		}
 	printf("$eip\t0x%08x\n", cpu.eip);
 	}
+
+	else if (!strcmp (args, "w")) {
+
+		print_watchpoints();
+
+	}
+
+	else fprintf(stderr, "Unknown info command '%s'\n", args);
 	return 0;
 }
 
