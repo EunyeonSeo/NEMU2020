@@ -261,7 +261,7 @@ int dominant_operator(int p, int q){
 			ix_domin_oper = ix;
 
 	}
-
+	printf ("%d%d%d\n", p, q, ix_domin_oper);
 	return ix_domin_oper;
 
 }
